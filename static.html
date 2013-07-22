@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" href="css/reset.css">
+	<style type="text/css"> 
+		header {width:100%; background: #000; color:#fff; text-align: center;}
+		header h1 {display: block; font-size: 32px;;}
+		
+		#idea {}
+		#submit {width: 100%; height: 50px; font-size: 20px; margin 10px auto; background: #3366FF; border: 1px solid #3366FF; color: #fff;}
+		
+		input {width: 100%; height: 50px; font-size: 26px; margin: 10px auto; border: 1px solid #ccc;}
+	</style>
+	
+	</head>
+	
+	<body>
+	
+		<header>
+			<h1>!</h1>
+		</header>
+		<section>
+			Idea<input id="idea" name="idea" type="text" autofocus>
+			Triggers<input id="trigger" name="trigger" type="text">
+			Tags<input id="tags" name="tags" type="text">
+			
+			<input id="time" name="time" type="text" placeholder="time of the day">
+			<input id="day" name="day" type="text" placeholder="day of the week">
+			<input id="location" name="location" type="text" placeholder="approximate location">
+			<input id="weather" name="weather" type="text" placeholder="current weather">
+
+			
+			<input id="submit" type="submit" value="Submit" />
+		</section>
+		<footer></footer>
+		
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry,weather&sensor=false">
+</script>
+		<script>
+			var now = new Date();
+			/*now.setDate(now.getDate()+30);
+			alert(now.getDay());*/
+			
+			/* get current time */
+			var hh = now.getHours();
+			var mm = now.getMinutes();
+			$("#time").val(hh+":"+mm);
+			
+			/* get current day of the week */
+			var weekday=new Array(7);
+			weekday[0]="Sunday";
+			weekday[1]="Monday";
+			weekday[2]="Tuesday";
+			weekday[3]="Wednesday";
+			weekday[4]="Thursday";
+			weekday[5]="Friday";
+			weekday[6]="Saturday";
+			var day = weekday[now.getDay()];
+			
+			$("#day").val(day);
+			
+			/* get current location */
+			
+			if (navigator.geolocation) {
+				var timeoutVal = 10 * 1000 * 1000;
+				navigator.geolocation.getCurrentPosition(
+					displayPosition, 
+					displayError,
+					{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+				);
+			}
+			else {
+			  alert("Geolocation is not supported by this browser");
+			}
+			
+			
+			
+			function displayPosition(position) {
+				var userLat = position.coords.latitude;
+				var userLong = position.coords.longitude;
+				/*$("#location").val(userLat+","+userLong);*/
+				
+				geocoder = new google.maps.Geocoder();				
+				var latlng = new google.maps.LatLng(userLat, userLong);
+				
+				geocoder.geocode({'location': latlng}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if (results[4]) {
+							$("#location").val(results[4].formatted_address);
+						} else {
+							$("#location").val("something is wrong here");
+						
+						}
+				
+					} else {
+						alert("Geocoder failed due to: " + status);
+					}
+				});
+				 
+				 
+				
+				
+			 
+			}
+			function displayError(error) {
+			  var errors = { 
+				1: 'Permission denied.',
+				2: 'Position unavailable.',
+				3: 'Request timeout.'
+			  };
+			  $("#location").val("Error: Cannot retrieve location. " + errors[error.code]);
+			}
+			
+			  
+			
+			/* get current weather */
+			
+			userWeather = new google.maps.weather.WeatherForecast();
+			/*alert(userWeather.description);*/
+						
+		</script>
+	
+	
+	</body>
+</html>

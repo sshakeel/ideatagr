@@ -1,0 +1,37 @@
+.navbar .nav > li > a, .navbar .nav > li > a:hover {color: #D9A1B9; text-shadow: none;}
+
+.navbar-inverse .navbar-inner {
+	background-color: #522833;
+  background-image: -moz-linear-gradient(top, #522833, #401F28);
+  background-image: -ms-linear-gradient(top, #522833, #401F28);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#522833), to(#401F28));
+  background-image: -webkit-linear-gradient(top, #522833, #401F28);
+  background-image: -o-linear-gradient(top, #522833, #401F28);
+  background-image: linear-gradient(top, #522833, #401F28);
+ }
+ 
+.btn-success, .btn-success:hover {
+  background-color: #7F3456;
+  *background-color: #8F3A60;
+  background-image: -ms-linear-gradient(top, #8F3A60, #7F3456);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#8F3A60), to(#7F3456));
+  background-image: -webkit-linear-gradient(top, #8F3A60, #7F3456);
+  background-image: -o-linear-gradient(top, #8F3A60, #7F3456);
+  background-image: -moz-linear-gradient(top, #8F3A60, #7F3456);
+  background-image: linear-gradient(top, #8F3A60, #7F3456);
+  background-repeat: repeat-x;
+}
+
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+  background-color: #7F3456;
+  *background-color: #8F3A60;
+}
+
+.sub-nav-bar {}
+.navbar .brand {color: #C3838D;}
+
+.creativityStats h3{color: #D9A1B9;}
+.navbar-inverse .navbar-search .search-query {background: #743949;}
